@@ -1,3 +1,31 @@
+<?php
+
+function get_Curl($url) {
+
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $url );
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER , false); 
+  $result = curl_exec($curl);
+  curl_close();
+  
+  return json_decode($result, true);
+  // var_dump($result);
+
+}
+
+$result = get_Curl('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=Z7I3ZNGpu4Q&key=AIzaSyCAKen-KYEx4GsKiuWvK7_SvoMYlHB9TdY');
+
+$youtubeProfilePic = $result['items'][0]['snippet']['thumbnails']['medium']['url'];
+$channelName= $result['items'][0]['snippet']['tittle'];
+$subcriber = $result['items'][0]['statistics']['subscriberCount'];
+
+
+// latest video 
+
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -68,9 +96,75 @@
       </div>
     </section>
 
+    <!-- social media yputube & ig -->
+
+    <section class="social bg-light" id="social">
+      <div class="container ">
+        <div class="row pt-4 mb-4">
+          <div class="col text-center">
+            <h2>Social Media</h2>
+          </div>
+        </div>
+
+
+        <div class="row justify-content-center">
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="<?= $youtubeProfilePic; ?> class="rounded-circle img-thumbnail" width="200">
+              </div>
+              <div class="cil-md-8">
+                <h5><?= $channelName;?></h5>
+                <p><?= $subscriber;?></p>
+              </div>
+            </div>
+
+            <div class="row mt-3 pb-3">
+              <div class="col">
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/TvOFqREy7A8?rel=0" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+          <div class="col-md-5">
+          <div class="row">
+              <div class="col-md-4">
+                <img src="img/profile1.png" class="rounded-circle img-thumbnail" width="200">
+              </div>
+
+              <div class="cil-md-8">
+                <h5>WebProgramingUNPAS</h5>
+                <p>70000 Followers</p>
+              </div>
+          </div>
+
+          <div class="row mt-3 pb-3">
+              <div class="col">
+                    <div class="ig-thumbnail">
+                      <img src="img/thumbs/1.png">
+                    </div>
+                    <div class="ig-thumbnail">
+                      <img src="img/thumbs/2.png">
+                    </div>
+                    <div class="ig-thumbnail">
+                      <img src="img/thumbs/3.png">
+                    </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- social media yputube & ig -->
+
 
     <!-- Portfolio -->
-    <section class="portfolio bg-light" id="portfolio">
+    <section class="portfolio " id="portfolio">
       <div class="container">
         <div class="row pt-4 mb-4">
           <div class="col text-center">
@@ -139,7 +233,7 @@
 
 
     <!-- Contact -->
-    <section class="contact" id="contact">
+    <section class="contact bg-light" id="contact">
       <div class="container">
         <div class="row pt-4 mb-4">
           <div class="col text-center">
